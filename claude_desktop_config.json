@@ -1,0 +1,23 @@
+{
+  "mcpServers": {
+    "TN": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://tradernet.com/mcp/tn",
+        "--header",
+        "X-TN-API-Key:${TN_API_KEY}",
+        "--header",
+        "X-TN-API-Secret:${TN_API_SECRET}",
+        "--header",
+        "X-TN-SID:${TN_SID}"
+      ],
+      "env": {
+        "TN_API_KEY": "${TN_API_KEY}",
+        "TN_API_SECRET": "${TN_API_SECRET}",
+        "TN_SID": "${TN_SID}"
+      }
+    }
+  }
+}

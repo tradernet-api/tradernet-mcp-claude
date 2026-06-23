@@ -1,0 +1,10 @@
+# Secrets — never commit
+credentials.env
+*.env
+.tn-session.*
+
+# IDE
+.idea/
+
+# OS
+.DS_Store
