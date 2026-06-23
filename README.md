@@ -1,11 +1,55 @@
-# Tradernet MCP — Claude Desktop
+<div align="center">
 
-Connect Claude Desktop to the Tradernet API over [Model Context Protocol](https://modelcontextprotocol.io/).
-Once connected, the assistant gets ~61 tools: quotes, portfolio, orders,
-tariffs, reports and more.
+<img src="assets/logo.svg" alt="Tradernet MCP" width="280">
 
-> Every call runs against a **real Tradernet account** — real data, orders and
-> money. Use a dedicated test account, not your production one.
+# Tradernet MCP for Claude Desktop
+
+**Connect Claude Desktop to the Tradernet API over [Model Context Protocol](https://modelcontextprotocol.io/).**
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Version](https://img.shields.io/badge/version-1.0.0-green.svg)](claude_desktop_config.json)
+[![MCP](https://img.shields.io/badge/MCP-Streamable%20HTTP-51AF3D.svg)](https://modelcontextprotocol.io/)
+[![Platform](https://img.shields.io/badge/platform-Claude%20Desktop-D97757.svg)](https://claude.ai/download)
+[![Node.js](https://img.shields.io/badge/bridge-mcp--remote-339933.svg)](https://www.npmjs.com/package/mcp-remote)
+[![GitHub stars](https://img.shields.io/github/stars/tradernet-api/tradernet-mcp-claude?style=social)](https://github.com/tradernet-api/tradernet-mcp-claude/stargazers)
+
+[Tradernet API docs](https://tradernet.com/tradernet-api/mcp) ·
+[Report issue](https://github.com/tradernet-api/tradernet-mcp-claude/issues)
+
+</div>
+
+---
+
+> **Warning:** Every call runs against a **real Tradernet account** — real data, orders and money. Use a dedicated test account, not your production one.
+
+## Overview
+
+Once connected, Claude gets ~**61 tools**: quotes, portfolio, orders, tariffs, reports and more.
+
+Claude Desktop has no rules / commands / hooks system like Cursor. This repository ships the **MCP connection config** (via the `mcp-remote` bridge) and an optional **Agent Skill** for SID refresh.
+
+## Features
+
+| Capability | Description |
+|------------|-------------|
+| **MCP bridge** | `claude_desktop_config.json` — stdio `mcp-remote` → Streamable HTTP endpoint |
+| **Auth headers** | `X-TN-API-Key`, `X-TN-API-Secret`, `X-TN-SID` from environment variables |
+| **SID skill** | `tn-mcp-refresh-sid` — runbook when session tools return `401` |
+| **No secrets in repo** | Config uses `${TN_*}` placeholders only |
+
+## Table of contents
+
+- [Why this is a config, not a "plugin"](#why-this-is-a-config-not-a-plugin)
+- [Why mcp-remote](#why-mcp-remote)
+- [Requirements](#requirements)
+- [Secrets](#secrets-env-only-never-in-the-config)
+- [Install](#install)
+- [Quick start](#quick-start)
+- [Refreshing the SID](#refreshing-the-sid)
+- [Security](#security)
+- [Data notes](#data-notes)
+- [Related integrations](#related-integrations)
+- [License](#license)
 
 ## Why this is a config, not a "plugin"
 
@@ -32,8 +76,8 @@ from environment variables.
 1. A Tradernet account with API access.
 2. An API key pair — [tradernet.com/tradernet-api/auth-api](https://tradernet.com/tradernet-api/auth-api)
    (`apiSecret` is shown only once).
-3. Node.js (for `npx mcp-remote`).
-4. Claude Desktop.
+3. [Node.js](https://nodejs.org/) (for `npx mcp-remote`).
+4. [Claude Desktop](https://claude.ai/download).
 
 ## Secrets (env only, never in the config)
 
@@ -60,23 +104,23 @@ Source it from your shell profile so the variables exist when the app launches:
 
 ## Install
 
-1. Merge the `TN` entry from `claude_desktop_config.json` into Claude Desktop's
-   config (Settings → Developer → Edit Config):
+1. Clone this repo or copy `claude_desktop_config.json`.
+2. Merge the `TN` entry into Claude Desktop's config (**Settings → Developer → Edit Config**):
    - macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
    - Windows: `%APPDATA%\Claude\claude_desktop_config.json`
    - Linux: `~/.config/Claude/claude_desktop_config.json`
-2. Make sure the secrets are exported (see above).
-3. Fully quit and relaunch Claude Desktop.
-4. In a new chat the `TN` server and its tools should be available.
+3. Make sure the secrets are exported (see above).
+4. Fully quit and relaunch Claude Desktop.
+5. In a new chat the `TN` server and its tools should be available.
 
 ### Optional: install the Skill
 
-Add `skills/tn-mcp-refresh-sid/` as an Agent Skill (Settings → Capabilities →
-Skills) so the assistant knows how to re-authenticate when the SID expires.
+Add `skills/tn-mcp-refresh-sid/` as an Agent Skill (**Settings → Capabilities → Skills**)
+so the assistant knows how to re-authenticate when the SID expires.
 
 ## Quick start
 
-1. Ask: "check the Tradernet connection" → the assistant calls
+1. Ask: *"check the Tradernet connection"* → the assistant calls
    `reference_get_market_status`, then `quotes_get` for `AAPL.US`, then
    `portfolio_get`.
 2. If a session tool returns `401` → refresh the SID (see below).
@@ -110,11 +154,14 @@ HMAC tools (`quotes_get`, `portfolio_get`, ...) do not need a SID. See the
   string (`"AAPL.US"`), not an array.
 - Large responses — use pagination and filters (`max_count`, date ranges).
 
-## Related
+## Related integrations
 
-- Cursor plugin: [github.com/tradernet-api/tradernet-mcp](https://github.com/tradernet-api/tradernet-mcp)
-- API docs: [tradernet.com/tradernet-api](https://tradernet.com/tradernet-api)
+| Client | Repository | What you get |
+|--------|------------|--------------|
+| **Cursor** | [tradernet-mcp](https://github.com/tradernet-api/tradernet-mcp) | Full plugin: rules, commands, hook, skill |
+| **Claude Desktop** (this repo) | [tradernet-mcp-claude](https://github.com/tradernet-api/tradernet-mcp-claude) | `mcp-remote` config + optional SID skill |
+| **Codex** | [tradernet-mcp-codex](https://github.com/tradernet-api/tradernet-mcp-codex) | Codex plugin with MCP config and safety skill |
 
 ## License
 
-MIT.
+[MIT](LICENSE) © Tradernet
