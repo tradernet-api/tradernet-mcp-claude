@@ -1,4 +1,6 @@
-<div align="center">
+---
+title: Tradernet MCP for Claude Desktop
+---
 
 # Tradernet MCP for Claude Desktop
 
@@ -13,8 +15,6 @@
 
 [Tradernet API docs](https://tradernet.com/tradernet-api/mcp) ·
 [Report issue](https://github.com/tradernet-api/tradernet-mcp-claude/issues)
-
-</div>
 
 ---
 
