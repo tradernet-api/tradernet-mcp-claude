@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="assets/logo.svg" alt="Tradernet MCP" width="280">
-
 # Tradernet MCP for Claude Desktop
 
 **Connect Claude Desktop to the Tradernet API over [Model Context Protocol](https://modelcontextprotocol.io/).**
@@ -61,7 +59,6 @@ ships:
 |------|---------|
 | `claude_desktop_config.json` | MCP server `TN` via the `mcp-remote` bridge |
 | `skills/tn-mcp-refresh-sid/` | optional Agent Skill: runbook to refresh the SID |
-| `assets/logo.svg` | logo |
 
 ## Why `mcp-remote`
 
