@@ -1,5 +1,6 @@
 # Secrets — never commit
 credentials.env
+session.env
 *.env
 .tn-session.*
 

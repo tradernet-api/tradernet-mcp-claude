@@ -1,4 +1,4 @@
 title: Tradernet MCP for Claude Desktop
-description: Claude Desktop config for the Tradernet API over Model Context Protocol
+description: Claude Desktop mcp-remote config for Tradernet MCP (quotes, portfolio, orders, and more)
 theme: jekyll-theme-cayman
 markdown: kramdown
